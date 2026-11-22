@@ -12,13 +12,11 @@ import org.testng.annotations.DataProvider;
                 "html:target/cucumber-reports/cucumber.html",
                 "json:target/cucumber-reports/cucumber.json"
         },
-
         monochrome = true,
-        publish = false
+        dryRun = false
 )
 
 public class TestNgRunner extends AbstractTestNGCucumberTests {
-
     @Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {

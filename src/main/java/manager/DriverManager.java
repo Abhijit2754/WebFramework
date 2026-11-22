@@ -76,7 +76,7 @@ public class DriverManager {
                 driver = null;
             }
         } else {
-            logger.info("Driver is already null");
+            logger.info("Driver is null");
         }
     }
 }

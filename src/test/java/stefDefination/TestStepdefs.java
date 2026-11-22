@@ -1,6 +1,7 @@
 package stefDefination;
 
 import base.TestContext;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import pageObjects.TestObject1;
@@ -19,8 +20,13 @@ public class TestStepdefs {
         testObject1.userOpenBrowser(testContext,arg);
     }
 
-    @Then("user check the Text {string} text")
+    @Then("user check the Text {string} on google home page")
     public void userCheckTheTextText(String arg0) {
-        testObject1.userVerifyTheText(testObject1, arg0);
+        testObject1.userVerifyTheText(testContext, arg0);
+    }
+
+    @And("user enter the text {string} on google home page")
+    public void userEnterTheTextOnGoogleHomePage(String arg0) {
+        testObject1.userEnterValue(testContext,arg0);
     }
 }
