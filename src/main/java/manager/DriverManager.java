@@ -3,7 +3,9 @@ package manager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,45 +36,47 @@ public class DriverManager {
     }
 
     private WebDriver createChromeDriver() {
-
         logger.info("Launching Chrome browser");
+        WebDriver chromeDriver = null;
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
 
-        WebDriver chromeDriver = new ChromeDriver();
+//        options.addArguments("--start-fullscreen");
+//        options.addArguments("--disable-infobars");
+//        options.addArguments("--disable-notifications");
+
+        chromeDriver = new ChromeDriver(options);
         chromeDriver.manage().window().maximize();
-
         return chromeDriver;
     }
 
     private WebDriver createEdgeDriver() {
-
         logger.info("Launching Edge browser");
+        WebDriver edgeDriver = null;
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--ignore-certificate-errors"); // certificates
+        options.addArguments("--allow-insecure-localhost");
 
-        WebDriver edgeDriver = new EdgeDriver();
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+
+        edgeDriver = new EdgeDriver(options);
         edgeDriver.manage().window().maximize();
         return edgeDriver;
     }
 
     public void quitDriver() {
-
-        System.out.println("QuitDriver method called");
-
         if (driver != null) {
             try {
-                System.out.println("Closing browser: " + driver);
-
+                logger.info("Closing browser") ;
                 driver.quit();
-
-                System.out.println("Browser closed successfully");
-
+                logger.info("Browser closed successfully");
             } catch (Exception e) {
                 e.printStackTrace();
-
             } finally {
                 driver = null;
             }
-
         } else {
-            System.out.println("Driver is already null");
+            logger.info("Driver is already null");
         }
     }
 }
