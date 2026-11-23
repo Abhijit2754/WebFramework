@@ -16,10 +16,8 @@ public class ReadWrite {
     {
         FileReader reader = null;
         String value;
-
         try {
             reader= new FileReader(filePath);
-
             Properties file =new Properties();
             file.load(reader);
             value = file.getProperty(key);

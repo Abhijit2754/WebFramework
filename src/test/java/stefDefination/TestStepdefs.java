@@ -6,6 +6,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import pageObjects.TestObject1;
 
+import java.io.FileNotFoundException;
+
 public class TestStepdefs {
     TestContext testContext;
     TestObject1 testObject1;
@@ -16,7 +18,7 @@ public class TestStepdefs {
     }
 
     @Given("User open browser and enter url {string}")
-    public void userOpenBrowser(String arg) {
+    public void userOpenBrowser(String arg) throws FileNotFoundException {
         testObject1.userOpenBrowser(testContext,arg);
     }
 

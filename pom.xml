@@ -22,10 +22,10 @@
         <selenium.version>4.53.0</selenium.version>
         <cucumber.version>7.17.0</cucumber.version>
 
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!-- Align all Selenium modules -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -40,7 +40,7 @@
 
     <!-- Build Configuration -->
     <build>
-        <plugins>
+         <plugins>
 
             <!-- Maven Compiler Plugin -->
             <plugin>

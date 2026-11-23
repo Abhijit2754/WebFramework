@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
+
 public class TestObject1 extends Basepage {
 
     private static final Logger logger = LoggerFactory.getLogger(TestObject1.class);
@@ -30,8 +32,8 @@ public class TestObject1 extends Basepage {
         PageFactory.initElements(driver, this);
     }
 
-    public void userOpenBrowser(TestContext testContext, String arg) {
-        driver.get(testContext.getReadWrite().getFilePath(arg));
+    public void userOpenBrowser(TestContext testContext, String arg) throws FileNotFoundException {
+        driver.get(testContext.getPropertiesUtility().getValueFromPropertiesFile(arg));
     }
 
     public void userVerifyTheText(TestContext testContext, String arg0) {

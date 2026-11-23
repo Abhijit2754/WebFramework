@@ -26,7 +26,6 @@ public class Hooks {
 
     @After
     public void afterScenario(Scenario scenario) {
-        System.out.println("After Hook Executed");
         if (System.getProperty("driverName") != null && !(System.getProperty("driverName").equalsIgnoreCase("noDriver"))) {
             {
                 if (scenario.isFailed()) {

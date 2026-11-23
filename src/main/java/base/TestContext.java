@@ -4,18 +4,23 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import manager.DriverManager;
 import manager.WebPageObjectManager;
 import org.openqa.selenium.WebDriver;
+import utility.PropertiesUtility;
 import utility.ReadWrite;
+
+import java.io.FileNotFoundException;
 
 public class TestContext {
     private DriverManager driverManager;
     private WebPageObjectManager webPageObjectManager;
     private ScenarioContext scenarioContext;
-    private ReadWrite readWrite;
+//    private ReadWrite readWrite;
+    private PropertiesUtility propertiesUtility;
     public static final String filePath = "./src/main/resources/configuration.properties";
 
-    public TestContext(){
+    public TestContext() throws FileNotFoundException {
         scenarioContext = new ScenarioContext();
-        readWrite = new ReadWrite(filePath);
+        propertiesUtility = new PropertiesUtility(filePath);
+        propertiesUtility.inititatFileReader();
         driverManager = new DriverManager();
         webPageObjectManager = new WebPageObjectManager(driverManager.getDriver());
     }
@@ -26,5 +31,5 @@ public class TestContext {
 
     public ScenarioContext getScenarioContext(){return scenarioContext;}
 
-    public ReadWrite getReadWrite(){return readWrite;}
+    public PropertiesUtility getPropertiesUtility(){return propertiesUtility;}
 }
