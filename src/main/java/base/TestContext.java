@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import manager.DriverManager;
 import manager.WebPageObjectManager;
 import org.openqa.selenium.WebDriver;
+import utility.ActionUtility;
 import utility.PropertiesUtility;
 import utility.ReadWrite;
 
@@ -14,6 +15,7 @@ public class TestContext {
     private WebPageObjectManager webPageObjectManager;
     private ScenarioContext scenarioContext;
 //    private ReadWrite readWrite;
+    private ActionUtility actionUtility;
     private PropertiesUtility propertiesUtility;
     public static final String filePath = "./src/main/resources/configuration.properties";
 
@@ -22,6 +24,7 @@ public class TestContext {
         propertiesUtility = new PropertiesUtility(filePath);
         propertiesUtility.inititatFileReader();
         driverManager = new DriverManager();
+        actionUtility = new ActionUtility(driverManager.getDriver());
         webPageObjectManager = new WebPageObjectManager(driverManager.getDriver());
     }
 
@@ -32,4 +35,8 @@ public class TestContext {
     public ScenarioContext getScenarioContext(){return scenarioContext;}
 
     public PropertiesUtility getPropertiesUtility(){return propertiesUtility;}
+
+    public ActionUtility getActionUtility(){
+        return actionUtility;
+    }
 }

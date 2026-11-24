@@ -41,15 +41,18 @@ public class TestObject1 extends Basepage {
             case "About" :
                 isDisplayedWithTextValidation(testContext,txt_about,"innerText",arg0);
                 takeScreenshot(testContext);
+                isDisplayed(testContext,txt_about);
                 break;
-            case  "Stodcdcdcdcdr1e" :
+            case  "Storwe" :
                 isDisplayedWithTextValidation(testContext,txt_store, "innerText",arg0);
                 takeScreenshot(testContext);
+                isDisplayed(testContext,txt_store);
                 break;
         }
     }
 
     public void userEnterValue(TestContext testContext, String arg0) {
         sendKeys(testContext,input_googleSearch,arg0);
+        testContext.getActionUtility().click(testContext, input_googleSearch, "Manage Deposit");
     }
 }

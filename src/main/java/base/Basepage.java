@@ -2,6 +2,7 @@ package base;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.testng.Assert;
 import java.time.Duration;
 
 public class Basepage {
-    public String textAttributeBasedOnDriver = System.getProperty("driverName").equalsIgnoreCase("Android") ? "content-desc" : "name";
     protected Logger logger = LoggerFactory.getLogger(Basepage.class);
 
     protected void waitForElementToBeVisible(WebDriver driver, WebElement webElement) {
@@ -25,7 +25,6 @@ public class Basepage {
             element.click();
             logger.info(elementName + " is clicked");
             logToHtmlReport(testContext, elementName + " is clicked");
-
         } catch (Exception e) {
             logger.info(elementName + " unable to click");
             logToHtmlReport(testContext, elementName + " is not clicked");
@@ -53,8 +52,8 @@ public class Basepage {
             logToHtmlReport(testContext," - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         } catch (AssertionError assertionError) {
             logger.info(" - " + assertionFor + "   |   Actual: " + actual + " |  Expected: " + expected, true);
-            Assert.fail(assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
             logToHtmlReport(testContext," - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
+            Assert.fail(assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         }
     }
 
@@ -87,8 +86,9 @@ public class Basepage {
     protected boolean isDisplayed(TestContext testContext, WebElement element) {
         try {
             waitForElementToBeVisible(testContext.getDriverManager().getDriver(), element);
-            String attributeValue = element.getAttribute(textAttributeBasedOnDriver);
+            String attributeValue = element.getAttribute("name");
             logger.info(attributeValue + " is displayed successfully.");
+            logToHtmlReport(testContext, attributeValue + " is displayed successfully.");
             return element.isDisplayed();
         } catch (NoSuchElementException | TimeoutException exception) {
             Assert.fail("Element is not present");
