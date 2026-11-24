@@ -1,28 +1,14 @@
-@TestDemo
+@GoogleTestScenarios
 Feature: Google Pages Automation Scenarios
 
   @GoogleDemoTest
-  Scenario: open the browser
+  Scenario Outline: open the browser
     Given User open browser and enter url "googleurl"
     Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "About" on google home page
-    Then user check the Text "Storwe" on google home page
-#    Then user click on the "Gmail" link on google home page
-#    Then user search the text "Today News" on google home page
-#    Then user click on the "Google Search" button on google home page
+    Then user check the Text "Store" on google home page
+    And user enter text "News today" in search box on google home page
+    Then user click on "<text>" text from the suggetion on google home page
+
+    Examples:
+      | text       |
+      | News Today |

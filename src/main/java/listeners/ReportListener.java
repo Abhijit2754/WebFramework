@@ -13,7 +13,6 @@ public class ReportListener implements ISuiteListener {
     public void onStart(ISuite suite) {
         File reportFolder =
                 new File("target/cucumber-reports");
-
         deleteFolder(reportFolder);
     }
 

@@ -1,19 +1,19 @@
 package manager;
 
 import org.openqa.selenium.WebDriver;
-import pageObjects.TestObject1;
+import pageObjects.GoogleTestObjectForFirstPage;
 
 public class WebPageObjectManager {
     private WebDriver driver;
 
-    private TestObject1 testObject1;
+    private GoogleTestObjectForFirstPage testObject1;
 
     public WebPageObjectManager(WebDriver driver){
         this.driver = driver;
     }
 
-    public TestObject1 getTestStepdefs()
+    public GoogleTestObjectForFirstPage getTestStepdefs()
     {
-        return (testObject1 == null) ? testObject1 = new TestObject1(driver) : testObject1;
+        return (testObject1 == null) ? testObject1 = new GoogleTestObjectForFirstPage(driver) : testObject1;
     }
 }

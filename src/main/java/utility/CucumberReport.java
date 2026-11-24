@@ -17,15 +17,9 @@ public class CucumberReport {
 
         jsonFiles.add("target/cucumber-reports/cucumber.json");
 
-        Configuration configuration = new Configuration( reportOutputDirectory,"Selenium Automation Framework");
+        Configuration configuration = new Configuration(reportOutputDirectory, "Project Name");
 
-        configuration.setBuildNumber("1");
-
-        configuration.addClassifications("Browser", "Chrome");
-        configuration.addClassifications("Environment", "QA");
-
-        ReportBuilder reportBuilder =
-                new ReportBuilder(jsonFiles, configuration);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
 
         reportBuilder.generateReports();
 

@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 
-public class TestObject1 extends Basepage {
+public class GoogleTestObjectForFirstPage extends Basepage {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestObject1.class);
+    private static final Logger logger = LoggerFactory.getLogger(GoogleTestObjectForFirstPage.class);
 
     private WebDriver driver;
 
@@ -24,10 +24,13 @@ public class TestObject1 extends Basepage {
     @FindBy(xpath = "//a[contains(text(),'Store')]")
     public WebElement txt_store;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//textarea[@class=\"gLFyf\"]")
     public WebElement input_googleSearch;
 
-    public TestObject1(WebDriver driver) {
+    @FindBy(xpath = "(//span[text()='news today'])[1]")
+    public WebElement txt_suggetionText;
+
+    public GoogleTestObjectForFirstPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -43,7 +46,7 @@ public class TestObject1 extends Basepage {
                 takeScreenshot(testContext);
                 isDisplayed(testContext,txt_about);
                 break;
-            case  "Storwe" :
+            case  "Store" :
                 isDisplayedWithTextValidation(testContext,txt_store, "innerText",arg0);
                 takeScreenshot(testContext);
                 isDisplayed(testContext,txt_store);
@@ -53,6 +56,10 @@ public class TestObject1 extends Basepage {
 
     public void userEnterValue(TestContext testContext, String arg0) {
         sendKeys(testContext,input_googleSearch,arg0);
-        testContext.getActionUtility().click(testContext, input_googleSearch, "Manage Deposit");
+        takeScreenshot(testContext);
+    }
+
+    public void userClickOnSuggetion(TestContext testContext, String arg) throws Throwable {
+        click(testContext,txt_suggetionText,arg);
     }
 }

@@ -15,7 +15,6 @@ import org.testng.annotations.Listeners;
                 "pretty",
                 "html:target/CucumberReports/CucumberReport.html",
                 "json:target/cucumber-reports/cucumber.json",
-
         },
         monochrome = true,
         dryRun = false
