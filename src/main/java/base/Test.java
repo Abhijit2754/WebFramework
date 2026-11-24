@@ -64,6 +64,5 @@ public class Test {
         System.out.println(str);
 
         // will print output only Abhijit
-
     }
 }
