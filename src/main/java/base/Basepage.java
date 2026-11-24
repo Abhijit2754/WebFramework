@@ -36,34 +36,34 @@ public class Basepage {
         ((Scenario) testContext.getScenarioContext().getScenarioContext("currentScenarioObject")).log(text);
     }
 
-    public void Screenshoot(WebDriver driver, Scenario scenario){
+    public void Screenshoot(WebDriver driver, Scenario scenario) {
         TakesScreenshot ts = (TakesScreenshot) driver;
         scenario.attach(ts.getScreenshotAs(OutputType.BYTES), "image/png", "screenshot");
     }
 
     protected void takeScreenshot(TestContext testContext) {
-        Screenshoot(testContext.getDriverManager().getDriver(),(Scenario) testContext.getScenarioContext().getScenarioContext("currentScenarioObject"));
+        Screenshoot(testContext.getDriverManager().getDriver(), (Scenario) testContext.getScenarioContext().getScenarioContext("currentScenarioObject"));
     }
 
     protected void validate(TestContext testContext, Object expected, Object actual, String assertionFor) {
         try {
             Assert.assertEquals(actual, expected, assertionFor);
             logger.info(" - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected, true);
-            logToHtmlReport(testContext," - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
+            logToHtmlReport(testContext, " - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         } catch (AssertionError assertionError) {
             logger.info(" - " + assertionFor + "   |   Actual: " + actual + " |  Expected: " + expected, true);
-            logToHtmlReport(testContext," - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
+            logToHtmlReport(testContext, " - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
             Assert.fail(assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         }
     }
 
     protected boolean isDisplayedWithTextValidation(TestContext testContext, WebElement element, String attributeName, String expectedValue) {
         try {
-            new WebDriverWait(testContext.getDriverManager().getDriver(),Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOf(element));
+            new WebDriverWait(testContext.getDriverManager().getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOf(element));
             String attributeValue = element.getAttribute(attributeName);
             validate(testContext, expectedValue, attributeValue, "validate element's attribute value ");
             logger.info(attributeValue + " is displayed successfully.");
-            logToHtmlReport(testContext,attributeValue + " is displayed successfully.");
+            logToHtmlReport(testContext, attributeValue + " is displayed successfully.");
             return element.isDisplayed();
         } catch (NoSuchElementException | TimeoutException exception) {
             Assert.fail("Element is not present");
@@ -96,14 +96,13 @@ public class Basepage {
         }
     }
 
-    protected void sendKeys(TestContext testContext, WebElement element ,String str)
-    {
-        waitForElementToBeVisible(testContext.getDriverManager().getDriver(),element);
-        try{
+    protected void sendKeys(TestContext testContext, WebElement element, String str) {
+        waitForElementToBeVisible(testContext.getDriverManager().getDriver(), element);
+        try {
             element.sendKeys(str);
-            logger.info("User enter text : "+str);
-        }catch (Exception e){
-            logger.info("Send keys "+str+" is failed");
+            logger.info("User enter text : " + str);
+        } catch (Exception e) {
+            logger.info("Send keys " + str + " is failed");
             Assert.fail();
         }
     }

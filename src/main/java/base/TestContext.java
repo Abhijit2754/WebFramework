@@ -11,12 +11,12 @@ import utility.ReadWrite;
 import java.io.FileNotFoundException;
 
 public class TestContext {
-    private DriverManager driverManager;
-    private WebPageObjectManager webPageObjectManager;
-    private ScenarioContext scenarioContext;
-//    private ReadWrite readWrite;
-    private ActionUtility actionUtility;
-    private PropertiesUtility propertiesUtility;
+    private final DriverManager driverManager;
+    private final WebPageObjectManager webPageObjectManager;
+    private final ScenarioContext scenarioContext;
+    //    private ReadWrite readWrite;
+    private final ActionUtility actionUtility;
+    private final PropertiesUtility propertiesUtility;
     public static final String filePath = "./src/main/resources/configuration.properties";
 
     public TestContext() throws FileNotFoundException {
@@ -28,15 +28,13 @@ public class TestContext {
         webPageObjectManager = new WebPageObjectManager(driverManager.getDriver());
     }
 
-    public DriverManager getDriverManager(){return driverManager;}
+    public DriverManager getDriverManager() {return driverManager;}
 
-    public WebPageObjectManager getWebPageObjectManager(){return webPageObjectManager;}
+    public WebPageObjectManager getWebPageObjectManager() {return webPageObjectManager;}
 
-    public ScenarioContext getScenarioContext(){return scenarioContext;}
+    public ScenarioContext getScenarioContext() {return scenarioContext;}
 
-    public PropertiesUtility getPropertiesUtility(){return propertiesUtility;}
+    public PropertiesUtility getPropertiesUtility() {return propertiesUtility;}
 
-    public ActionUtility getActionUtility(){
-        return actionUtility;
-    }
+    public ActionUtility getActionUtility() {return actionUtility;}
 }
