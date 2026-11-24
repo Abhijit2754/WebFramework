@@ -13,4 +13,6 @@ public class ScenarioContext {
     public Object getScenarioContext(String key){
         return scenarioContext.get(key);
     }
+
+    public void clearScenarioContext(){scenarioContext.clear();}
 }

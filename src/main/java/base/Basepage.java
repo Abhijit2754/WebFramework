@@ -2,7 +2,6 @@ package base;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -12,11 +11,11 @@ import org.testng.Assert;
 import java.time.Duration;
 
 public class Basepage {
-    protected Logger logger = LoggerFactory.getLogger(Basepage.class);
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected void waitForElementToBeVisible(WebDriver driver, WebElement webElement) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(webElement));
+    protected void waitForElementToBeVisible(WebDriver driver, WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     protected void click(TestContext testContext, WebElement element, String elementName) throws Throwable {
@@ -45,7 +44,7 @@ public class Basepage {
         Screenshoot(testContext.getDriverManager().getDriver(), (Scenario) testContext.getScenarioContext().getScenarioContext("currentScenarioObject"));
     }
 
-    protected void validate(TestContext testContext, Object expected, Object actual, String assertionFor) {
+    protected void validate1(TestContext testContext, Object expected, Object actual, String assertionFor) {
         try {
             Assert.assertEquals(actual, expected, assertionFor);
             logger.info(" - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected, true);
@@ -54,6 +53,19 @@ public class Basepage {
             logger.info(" - " + assertionFor + "   |   Actual: " + actual + " |  Expected: " + expected, true);
             logToHtmlReport(testContext, " - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
             Assert.fail(assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
+        }
+    }
+
+    protected void validate(TestContext testContext,Object expected,Object actual,String assertionFor) {
+        String message = assertionFor+ " | Actual: " + actual+ " | Expected: " + expected;
+        try {
+            Assert.assertEquals(actual,expected,assertionFor);
+            logger.info("PASS: {}", message);
+            logToHtmlReport(testContext, "PASS: " + message);
+        } catch (AssertionError e) {
+            logger.error("FAIL: {}", message);
+            logToHtmlReport(testContext, "FAIL: " + message);
+            throw e;
         }
     }
 
