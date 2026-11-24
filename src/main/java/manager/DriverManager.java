@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,8 @@ public class DriverManager {
         return switch (driverName.toUpperCase()) {
             case "CHROME" -> createChromeDriver();
             case "EDGE" -> createEdgeDriver();
+            case "SAFARI" -> createSafariDriver();
+            case "FIREFOX" -> createFirefoxDriver();
             default -> throw new IllegalArgumentException(
                     "Unsupported browser: " + driverName);
         };
@@ -62,6 +66,36 @@ public class DriverManager {
         edgeDriver = new EdgeDriver(options);
         edgeDriver.manage().window().maximize();
         return edgeDriver;
+    }
+
+    private WebDriver createSafariDriver() {
+        logger.info("Launching Edge browser");
+        WebDriver safariDriver = null;
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--ignore-certificate-errors"); // certificates
+        options.addArguments("--allow-insecure-localhost");
+
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+
+        safariDriver = new SafariDriver();
+
+        safariDriver.manage().window().maximize();
+        return safariDriver;
+    }
+
+    private WebDriver createFirefoxDriver() {
+        logger.info("Launching Edge browser");
+        WebDriver firefox = null;
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--ignore-certificate-errors"); // certificates
+        options.addArguments("--allow-insecure-localhost");
+
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+
+        firefox =  new FirefoxDriver();
+
+        firefox.manage().window().maximize();
+        return firefox;
     }
 
     public void quitDriver() {

@@ -50,9 +50,11 @@ public class Basepage {
         try {
             Assert.assertEquals(actual, expected, assertionFor);
             logger.info(" - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected, true);
+            logToHtmlReport(testContext," - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         } catch (AssertionError assertionError) {
             logger.info(" - " + assertionFor + "   |   Actual: " + actual + " |  Expected: " + expected, true);
             Assert.fail(assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
+            logToHtmlReport(testContext," - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         }
     }
 
@@ -62,6 +64,7 @@ public class Basepage {
             String attributeValue = element.getAttribute(attributeName);
             validate(testContext, expectedValue, attributeValue, "validate element's attribute value ");
             logger.info(attributeValue + " is displayed successfully.");
+            logToHtmlReport(testContext,attributeValue + " is displayed successfully.");
             return element.isDisplayed();
         } catch (NoSuchElementException | TimeoutException exception) {
             Assert.fail("Element is not present");

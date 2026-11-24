@@ -14,7 +14,8 @@ import org.testng.annotations.Listeners;
         plugin = {
                 "pretty",
                 "html:target/CucumberReports/CucumberReport.html",
-                "json:target/cucumber-reports/cucumber.json"
+                "json:target/cucumber-reports/cucumber.json",
+
         },
         monochrome = true,
         dryRun = false
