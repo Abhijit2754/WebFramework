@@ -25,38 +25,42 @@ public class ActionUtility {
         wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
-    public ActionUtility(WebDriver driver)
-    {
+    public ActionUtility(WebDriver driver) {
         actions = new Actions(driver);
     }
 
-    public void click(TestContext testContext, WebElement element, String elementName)
-    {
-        try
-        {
-            waitForElementToBeVisible(testContext.getDriverManager().getDriver(),element);
+    public void click(TestContext testContext, WebElement element, String elementName) {
+        try {
+            waitForElementToBeVisible(testContext.getDriverManager().getDriver(), element);
             actions.click(element).perform();
-            logger.info(elementName+ " is Clicked");
-        }catch (ElementClickInterceptedException e)
-        {
-            logger.info(elementName +" is not clicked");
-            Assert.fail(elementName +" is not clicked");
+            logger.info(elementName + " is Clicked");
+        } catch (ElementClickInterceptedException e) {
+            logger.info(elementName + " is not clicked");
+            Assert.fail(elementName + " is not clicked");
         }
     }
 
-    public void doubleClick(TestContext testContext, WebElement element, String elementName)
-    {
+    public void doubleClick(TestContext testContext, WebElement element, String elementName) {
         try {
-            waitForElementToBeVisible(testContext.getDriverManager().getDriver(),element);
+            waitForElementToBeVisible(testContext.getDriverManager().getDriver(), element);
             actions.doubleClick(element).perform();
             logger.info(elementName + " is clicked double");
-        }
-        catch (ElementClickInterceptedException e)
-        {
-            logger.info(elementName+" is not clicked two times");
-            Assert.fail(elementName+" is not clicked two times");
+        } catch (ElementClickInterceptedException e) {
+            logger.info(elementName + " is not clicked two times");
+            Assert.fail(elementName + " is not clicked two times");
         }
     }
 
-    public void
+    public void mouseHover(TestContext testContext, WebElement element) {
+
+    }
+
+    public void clickAndHold(TestContext testContext, WebElement element) {
+
+    }
+
+    public void dragAndDrop(TestContext testContext )
+    {
+
+    }
 }
