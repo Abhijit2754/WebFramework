@@ -22,7 +22,7 @@ public class PropertiesUtility {
             try {
                 properties.load(reader);
             }catch (Exception e){
-                throw new RuntimeException("unable to load the file");
+                throw new RuntimeException("Unable to load the file");
             }
         }catch (Exception e){
             throw new RuntimeException("Unable to read the file");

@@ -52,6 +52,7 @@ public class Basepage {
             logger.info(" - " + assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected, true);
         } catch (AssertionError assertionError) {
             logger.info(" - " + assertionFor + "   |   Actual: " + actual + " |  Expected: " + expected, true);
+            Assert.fail(assertionFor + "  |   Actual: " + actual + " |  Expected: " + expected);
         }
     }
 

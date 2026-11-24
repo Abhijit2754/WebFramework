@@ -40,9 +40,11 @@ public class TestObject1 extends Basepage {
         switch (arg0) {
             case "About" :
                 isDisplayedWithTextValidation(testContext,txt_about,"innerText",arg0);
+                takeScreenshot(testContext);
                 break;
-            case  "Store" :
+            case  "Stodcdcdcdcdr1e" :
                 isDisplayedWithTextValidation(testContext,txt_store, "innerText",arg0);
+                takeScreenshot(testContext);
                 break;
         }
     }

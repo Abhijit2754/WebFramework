@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.8.1</version>
+                <version>5.11.0</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -112,6 +112,13 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
             <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>5.12.1</version>
         </dependency>
 
         <dependency>
