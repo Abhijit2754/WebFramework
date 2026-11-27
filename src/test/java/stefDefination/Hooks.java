@@ -1,3 +1,4 @@
+
 package stefDefination;
 
 import base.TestContext;
@@ -6,13 +7,16 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Hooks {
 
     private final TestContext testContext;
-    protected Logger logger = LoggerFactory.getLogger(Hooks.class);
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(Hooks.class);
 
     public Hooks(TestContext context) {
         this.testContext = context;
@@ -20,26 +24,98 @@ public class Hooks {
 
     @Before
     public void beforeScenario(Scenario scenario) {
-        System.out.println("Before Hook Executed");
-        testContext.getScenarioContext().setScenarioContext("currentScenarioObject", scenario);
+
+        logger.info(
+                "Starting Scenario: {} | Thread ID: {}",
+                scenario.getName(),
+                Thread.currentThread().getId()
+        );
+
+        testContext.getScenarioContext()
+                .setScenarioContext("currentScenarioObject", scenario);
     }
 
     @After
     public void afterScenario(Scenario scenario) {
-        if (System.getProperty("driverName") != null && !(System.getProperty("driverName").equalsIgnoreCase("noDriver"))) {
-            if (scenario.isFailed()) {
-                scenario.log("Scenarios Tags :"+scenario.getSourceTagNames());
-                scenario.log("Scenario Name : " + scenario.getName());
-                scenario.log("Scenario line number : " + scenario.getLine());
-                scenario.log("Scenario file Path : " + scenario.getUri());
 
-                TakesScreenshot ts = (TakesScreenshot) testContext.getDriverManager().getDriver();
-                scenario.attach(ts.getScreenshotAs(OutputType.BYTES), "image/png", "screenshot");
+        try {
+
+            if (scenario.isFailed()) {
+
+                scenario.log("Scenario Tags: " +
+                        scenario.getSourceTagNames());
+
+                scenario.log("Scenario Name: " +
+                        scenario.getName());
+
+                scenario.log("Scenario Line: " +
+                        scenario.getLine());
+
+                scenario.log("Scenario URI: " +
+                        scenario.getUri());
+
+                captureScreenshot(scenario);
             }
 
-            if (testContext.getDriverManager().getDriver() != null)
+        } catch (Exception e) {
+
+            logger.error(
+                    "Error during scenario cleanup: {}",
+                    scenario.getName(),
+                    e
+            );
+
+        } finally {
+
+            // Always close the current thread's driver
+            if (isBrowserExecution()) {
+
                 testContext.getDriverManager().quitDriver();
+            }
+
+            logger.info(
+                    "Finished Scenario: {} | Thread ID: {}",
+                    scenario.getName(),
+                    Thread.currentThread().getId()
+            );
         }
-        testContext.getDriverManager().quitDriver();
+    }
+
+    private void captureScreenshot(Scenario scenario) {
+
+        try {
+
+            WebDriver driver =
+                    testContext.getDriverManager().getDriver();
+
+            if (driver != null) {
+
+                byte[] screenshot =
+                        ((TakesScreenshot) driver)
+                                .getScreenshotAs(OutputType.BYTES);
+
+                scenario.attach(
+                        screenshot,
+                        "image/png",
+                        "Failure Screenshot"
+                );
+            }
+
+        } catch (Exception e) {
+
+            logger.error(
+                    "Screenshot capture failed for scenario: {}",
+                    scenario.getName(),
+                    e
+            );
+        }
+    }
+
+    private boolean isBrowserExecution() {
+
+        String driverName =
+                System.getProperty("driverName", "CHROME");
+
+        return !driverName.equalsIgnoreCase("noDriver");
     }
 }

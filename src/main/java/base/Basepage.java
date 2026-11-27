@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
+import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class Basepage {
@@ -40,7 +41,7 @@ public class Basepage {
         scenario.attach(ts.getScreenshotAs(OutputType.BYTES), "image/png", "screenshot");
     }
 
-    protected void takeScreenshot(TestContext testContext) {
+    protected void takeScreenshot(TestContext testContext){
         Screenshoot(testContext.getDriverManager().getDriver(), (Scenario) testContext.getScenarioContext().getScenarioContext("currentScenarioObject"));
     }
 
@@ -83,7 +84,7 @@ public class Basepage {
         }
     }
 
-    public void clear(TestContext testContext, WebElement element, String txt) {
+    public void clear(TestContext testContext, WebElement element, String txt){
         waitForElementToBeVisible(testContext.getDriverManager().getDriver(), element);
         try {
             element.clear();
@@ -102,13 +103,13 @@ public class Basepage {
             logger.info(attributeValue + " is displayed successfully.");
             logToHtmlReport(testContext, attributeValue + " is displayed successfully.");
             return element.isDisplayed();
-        } catch (NoSuchElementException | TimeoutException exception) {
+        } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Element is not present");
             return false;
         }
     }
 
-    protected void sendKeys(TestContext testContext, WebElement element, String str) {
+    protected void sendKeys(TestContext testContext, WebElement element, String str){
         waitForElementToBeVisible(testContext.getDriverManager().getDriver(), element);
         try {
             element.sendKeys(str);

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 
 public class GoogleTestObjectForFirstPage extends Basepage {
 
@@ -39,7 +40,7 @@ public class GoogleTestObjectForFirstPage extends Basepage {
         driver.get(testContext.getPropertiesUtility().getValueFromPropertiesFile(arg));
     }
 
-    public void userVerifyTheText(TestContext testContext, String arg0) {
+    public void userVerifyTheText(TestContext testContext, String arg0){
         switch (arg0) {
             case "About" :
                 isDisplayedWithTextValidation(testContext,txt_about,"innerText",arg0);
@@ -54,7 +55,7 @@ public class GoogleTestObjectForFirstPage extends Basepage {
         }
     }
 
-    public void userEnterValue(TestContext testContext, String arg0) {
+    public void userEnterValue(TestContext testContext, String arg0){
         sendKeys(testContext,input_googleSearch,arg0);
         takeScreenshot(testContext);
     }

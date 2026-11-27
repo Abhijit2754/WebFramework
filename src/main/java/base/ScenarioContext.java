@@ -15,4 +15,9 @@ public class ScenarioContext {
     }
 
     public void clearScenarioContext(){scenarioContext.clear();}
+
+    public boolean containsKey(String key) {
+
+        return scenarioContext.containsKey(key);
+    }
 }

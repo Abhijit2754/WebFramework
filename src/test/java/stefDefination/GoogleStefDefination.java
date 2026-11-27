@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import pageObjects.GoogleTestObjectForFirstPage;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 
 public class GoogleStefDefination {
     TestContext testContext;
@@ -23,12 +24,12 @@ public class GoogleStefDefination {
     }
 
     @Then("user check the Text {string} on google home page")
-    public void userCheckTheTextText(String arg0) {
+    public void userCheckTheTextText(String arg0){
         googleTestObjectForFirstPage.userVerifyTheText(testContext, arg0);
     }
 
     @And("user enter the text {string} on google home page")
-    public void userEnterTheTextOnGoogleHomePage(String arg0) {
+    public void userEnterTheTextOnGoogleHomePage(String arg0){
         googleTestObjectForFirstPage.userEnterValue(testContext,arg0);
     }
 
