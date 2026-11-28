@@ -1,6 +1,7 @@
 
 package manager;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -93,9 +94,7 @@ public class DriverManager {
         return createBrowser(options, "SAFARI");
     }
 
-    private WebDriver createBrowser(
-            org.openqa.selenium.MutableCapabilities options,
-            String browserName) {
+    private WebDriver createBrowser(MutableCapabilities options, String browserName) {
         WebDriver driver;
         String gridUrl = System.getProperty("gridUrl");
         try {
