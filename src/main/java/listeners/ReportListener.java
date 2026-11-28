@@ -17,22 +17,15 @@ public class ReportListener implements ISuiteListener {
 
     @Override
     public void onStart(ISuite suite) {
-
         logger.info("Test Suite Started: {}", suite.getName());
-
-        File reportFolder =
-                new File("target/cucumber-reports");
-
+        File reportFolder =new File("target/cucumber-reports");
         deleteFolder(reportFolder);
-
         logger.info("Previous report folder cleaned");
     }
 
     @Override
     public void onFinish(ISuite suite) {
-
         logger.info("Test Suite Finished: {}", suite.getName());
-
         try {
             CucumberReport.generateReport();
             logger.info("Cucumber HTML report generated successfully");
@@ -45,32 +38,22 @@ public class ReportListener implements ISuiteListener {
     }
 
     private void deleteFolder(File folder) {
-
         if (!folder.exists()) {
             return;
         }
-
         File[] files = folder.listFiles();
-
         if (files != null) {
             for (File file : files) {
-
                 if (file.isDirectory()) {
                     deleteFolder(file);
                 } else if (!file.delete()) {
-                    throw new RuntimeException(
-                            "Unable to delete file: " +
-                                    file.getAbsolutePath()
+                    throw new RuntimeException("Unable to delete file: " +file.getAbsolutePath()
                     );
                 }
             }
         }
-
         if (!folder.delete()) {
-            throw new RuntimeException(
-                    "Unable to delete folder: " +
-                            folder.getAbsolutePath()
-            );
+            throw new RuntimeException("Unable to delete folder: " +folder.getAbsolutePath());
         }
     }
 }

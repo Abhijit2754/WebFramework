@@ -29,164 +29,101 @@ public class DriverManager {
     public WebDriver getDriver() {
         WebDriver driver = DRIVER.get();
         if (driver == null) {
-            String driverName = System.getProperty(
-                    "driverName", "CHROME"
-            ).trim().toUpperCase(Locale.ROOT);
-
-            logger.info(
-                    "Creating {} driver on Thread: {}",
-                    driverName,
-                    Thread.currentThread().getId()
-            );
+            String driverName = System.getProperty("driverName", "CHROME").trim().toUpperCase(Locale.ROOT);
+            logger.info("Creating {} driver on Thread: {}",driverName,Thread.currentThread().getId());
             driver = createDriver(driverName);
             DRIVER.set(driver);
         }
-
         return driver;
     }
 
-    // Get current thread's driver without creating a new browser
     public WebDriver getCurrentDriver() {
         return DRIVER.get();
     }
 
-    // Create browser driver
     private WebDriver createDriver(String driverName) {
-
         WebDriver driver;
-
         switch (driverName) {
-
             case "CHROME":
                 driver = createChromeDriver();
                 break;
-
             case "EDGE":
                 driver = createEdgeDriver();
                 break;
-
             case "FIREFOX":
                 driver = createFirefoxDriver();
                 break;
-
             case "SAFARI":
                 driver = createSafariDriver();
                 break;
-
             default:
-                throw new IllegalArgumentException(
-                        "Unsupported browser: " + driverName
-                );
+                throw new IllegalArgumentException("Unknown browser you mentioned" + driverName);
         }
-
         return driver;
     }
 
-    // Chrome
     private WebDriver createChromeDriver() {
-
         logger.info("Launching Chrome browser");
-
         ChromeOptions options = new ChromeOptions();
-
         options.addArguments("--start-maximized");
-
         return createBrowser(options, "CHROME");
     }
 
-    // Edge
     private WebDriver createEdgeDriver() {
-
         logger.info("Launching Edge browser");
-
         EdgeOptions options = new EdgeOptions();
-
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--allow-insecure-localhost");
-
         options.setExperimentalOption(
                 "excludeSwitches",
                 new String[]{"enable-automation"}
         );
-
         return createBrowser(options, "EDGE");
     }
 
-    // Firefox
     private WebDriver createFirefoxDriver() {
-
         logger.info("Launching Firefox browser");
-
         FirefoxOptions options = new FirefoxOptions();
-
         return createBrowser(options, "FIREFOX");
     }
 
-    // Safari
     private WebDriver createSafariDriver() {
-
         logger.info("Launching Safari browser");
-
         SafariOptions options = new SafariOptions();
-
         return createBrowser(options, "SAFARI");
     }
 
-    // Local browser or Selenium Grid
     private WebDriver createBrowser(
             org.openqa.selenium.MutableCapabilities options,
             String browserName) {
-
         WebDriver driver;
-
         String gridUrl = System.getProperty("gridUrl");
-
         try {
-
             if (gridUrl != null && !gridUrl.trim().isEmpty()) {
-
                 logger.info("Connecting to Selenium Grid: {}", gridUrl);
-
-                driver = new RemoteWebDriver(
-                        new URL(gridUrl),
-                        options
-                );
-
+                driver = new RemoteWebDriver(new URL(gridUrl),options);
             } else {
-
                 logger.info("Starting local {} browser", browserName);
-
                 switch (browserName) {
-
                     case "CHROME":
                         driver = new ChromeDriver((ChromeOptions) options);
                         break;
-
                     case "EDGE":
                         driver = new EdgeDriver((EdgeOptions) options);
                         break;
-
                     case "FIREFOX":
                         driver = new FirefoxDriver((FirefoxOptions) options);
                         break;
-
                     case "SAFARI":
                         driver = new SafariDriver((SafariOptions) options);
                         break;
-
                     default:
-                        throw new IllegalArgumentException(
-                                "Unsupported browser: " + browserName
-                        );
+                        throw new IllegalArgumentException("Unknown browser you mentioned" + browserName);
                 }
             }
-
             driver.manage().window().maximize();
-
             return driver;
-
         } catch (MalformedURLException e) {
-
             throw new RuntimeException(
                     "Invalid Selenium Grid URL: " + gridUrl, e
             );
@@ -194,29 +131,17 @@ public class DriverManager {
     }
 
     public void quitDriver() {
-
         WebDriver driver = DRIVER.get();
-
         try {
-
             if (driver != null) {
-
-                logger.info(
-                        "Closing browser on Thread: {}",
-                        Thread.currentThread().getId()
-                );
-
+                logger.info("Closing browser on Thread: {}",Thread.currentThread().getId());
                 driver.quit();
-
                 logger.info("Browser closed successfully");
             }
 
         } catch (Exception e) {
-
             logger.error("Error while closing browser", e);
-
         } finally {
-
             DRIVER.remove();
         }
     }

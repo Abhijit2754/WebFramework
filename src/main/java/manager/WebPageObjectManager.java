@@ -5,7 +5,6 @@ import pageObjects.GoogleTestObjectForFirstPage;
 
 public class WebPageObjectManager {
     private WebDriver driver;
-
     private GoogleTestObjectForFirstPage testObject1;
 
     public WebPageObjectManager(WebDriver driver){
